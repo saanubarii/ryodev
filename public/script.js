@@ -130,7 +130,7 @@ async function getRoastingResponse(imageData) {
             body: JSON.stringify({ prompt: "Roast this artwork", image: imageData })
         }).then(res => res.text());
 
-        return responseTextGemini || responseTextGroq || "No roasting response available.";
+        return responseTextGemini || responseTextGroq || "maaf, server sok sibuk, coba lagi nanti"; "Kena limit token kek nya"
     } catch (error) {
         console.error('Error occurred:', error);
         return "Failed to fetch response.";
