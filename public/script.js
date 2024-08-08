@@ -116,24 +116,23 @@ document.getElementById('upload').addEventListener('change', function(event) {
     }
 });
 
-async function getRoastingResponse(file) {
-    const formData = new FormData();
-    formData.append('image', file);
+async function getRoastingResponse(imageData) {
+    try {
+        const responseTextGemini = await fetch('/api/gemini', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ prompt: "Roast this artwork", image: imageData })
+        }).then(res => res.text());
 
-    // Mengambil respons dari API Gemini
-    const responseGemini = await fetch('http://localhost:3001/api/gemini', {
-        method: 'POST',
-        body: formData
-    });
-    const responseTextGemini = await responseGemini.text();
+        const responseTextGroq = await fetch('/api/groqcloud', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ prompt: "Roast this artwork", image: imageData })
+        }).then(res => res.text());
 
-    // Mengambil respons dari API GroqCloud
-    const responseGroq = await fetch('http://localhost:3001/api/groqcloud', {
-        method: 'POST',
-        body: formData
-    });
-    const responseTextGroq = await responseGroq.text();
-
-    // Mengembalikan respons yang tersedia
-    return responseTextGemini || responseTextGroq || "No roasting response available.";
+        return responseTextGemini || responseTextGroq || "No roasting response available.";
+    } catch (error) {
+        console.error('Error occurred:', error);
+        return "Failed to fetch response.";
+    }
 }
