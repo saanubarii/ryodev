@@ -1,0 +1,25 @@
+{
+    "name": "web-roasting",
+    "version": "1.0.0",
+    "description": "A web application for roasting artists' drawings using AI-generated responses.",
+    "main": "server.js",
+    "scripts": {
+      "start": "node server.js"
+    },
+    "dependencies": {
+      "express": "^4.18.2",
+      "@google/generative-ai": "^1.0.0",
+      "groq-sdk": "^1.0.0",
+      "multer": "^1.4.5-lts.1",
+      "dotenv": "^16.0.3"
+    },
+    "devDependencies": {
+      "nodemon": "^2.0.20"
+    },
+    "engines": {
+      "node": ">=14.0.0"
+    },
+    "author": "",
+    "license": "ISC"
+  }
+  

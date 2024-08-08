@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RyoDev Roasting App</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
+<body>
+    <div class="container">
+        <div class="logo">
+            <span class="ryo">Ryo</span><span class="dev">Dev</span>
+        </div>
+        <main class="container">
+            <!-- Animasi teks -->
+            <div class="typewriter-container">
+                <div class="typewriter">
+                    <span id="typewriter-text"></span>
+                    <div class="dot"></div>
+                </div>
+            </div>
+        </main>
+        <div class="upload-box">
+            <input type="file" id="upload" accept="image/*">
+            <label for="upload">Upload Your Art</label>
+        </div>
+        <div class="preview">
+            <img id="preview-image" alt="Your uploaded art will appear here">
+        </div>
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <p>LOANJING...</p>
+        </div>
+        <div id="response" class="response"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+
+
+ 
