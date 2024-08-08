@@ -1,0 +1,9 @@
+{
+  "watch": ["app.mjs", "src/"],
+  "ext": "js,json",
+  "ignore": ["node_modules/", "public/"],
+  "exec": "node -r dotenv/config app.js",
+  "env": {
+    "NODE_ENV": "development"
+  }
+}
