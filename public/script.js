@@ -23,24 +23,38 @@ document.getElementById('upload').addEventListener('change', function(event) {
     }
 });
 
-async function getRoastingResponse(file) {
-    const formData = new FormData();
-    formData.append('image', file);
+async function getRoastingResponse(imageData) {
+    try {
+        const responseGemini = await fetch(process.env.GEMINI_API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ prompt: "Roast this artwork", image: imageData })
+        });
 
-    // Mengambil respons dari API Gemini
-    const responseTextGemini = await fetch('/api/gemini', {
-        method: 'POST',
-        body: formData
-    }).then(res => res.text());
+        if (!responseGemini.ok) {
+            throw new Error(`Gemini API error: ${responseGemini.status}`);
+        }
 
-    // Mengambil respons dari API GroqCloud
-    const responseTextGroq = await fetch('/api/groqcloud', {
-        method: 'POST',
-        body: formData
-    }).then(res => res.text());
+        const responseTextGemini = await responseGemini.text();
 
-    // Mengembalikan respons yang tersedia
-    return responseTextGemini || responseTextGroq || "No roasting response available.";
+        const responseGroq = await fetch(process.env.GROQCLOUD_API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ prompt: "Roast this artwork", image: imageData })
+        });
+
+        if (!responseGroq.ok) {
+            throw new Error(`GroqCloud API error: ${responseGroq.status}`);
+        }
+
+        const responseTextGroq = await responseGroq.text();
+
+        return responseTextGemini || responseTextGroq || "No roasting response available.";
+
+    } catch (error) {
+        console.error(error);
+        return "Failed to fetch AI response. Please try again later.";
+    }
 }
 
 // script.js
